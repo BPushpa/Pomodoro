@@ -17,12 +17,12 @@
 
 body {
   background: #F2F2F2;
-  background-image: url("http://reneroth.org/projects/codepen/bgs/FF5qM3y.jpg");
+  background-image: url("");
   background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.23) 0%,rgba(255,255,255,0) 100%),url(http://reneroth.org/projects/codepen/bgs/FF5qM3y.jpg);
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.23) 0%,rgba(255,255,255,0) 100%),url();
 }
 
 .main {
@@ -118,8 +118,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     width: 970px;
     height: 150px;
     position: absolute;
-    background: url(http://reneroth.org/projects/codepen/pomodoro.png),url(red.png);
-	 background: url(http://reneroth.org/projects/codepen/pomodoro.png),#d53f3f;
+    background: url(),url(red.png);
+	 background: url(),#d53f3f;
     /* display: none; */
     background-size: 65% 25%,100%;
     background-repeat: repeat-x;
@@ -333,17 +333,17 @@ var pixelWidth = 630;
 var secondsWidth = 25;
 var timeMultiplier = 1000 * 60;
 var tickSound = new Howl({
-		urls: ['http://reneroth.org/projects/codepen/pomodoro_tick.ogg', 'http://reneroth.org/projects/codepen/pomodoro_tick.mp3'],
+		urls: ['', ''],
 		loop: true,
 		volume: 0.5 });
 
 var turnSound = new Howl({
-		urls: ['http://reneroth.org/projects/codepen/pomodoro_turn.ogg', 'http://reneroth.org/projects/codepen/pomodoro_turn.mp3'] });
+		urls: ['', ''] });
 
 var isTickPlaying = false;
 var turnSoundDist = 25 / 2;
 var ringSound = new Howl({
-		urls: ['http://reneroth.org/projects/codepen/pomodoro_ring.ogg', 'http://reneroth.org/projects/codepen/pomodoro_ring.mp3'],
+		urls: ['', ''],
 		volume: 1.0 });
 
 
@@ -461,6 +461,5 @@ $('.sound').click(function (e) {
 				tickSound.volume(0.0);
 		}
 });
-//# sourceURL=pen.js
 </script>
 </body></html>
