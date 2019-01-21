@@ -17,12 +17,12 @@
 
 body {
   background: #F2F2F2;
-  background-image: url("");
+  background-image: url("black_bg.jpg");
   background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.23) 0%,rgba(255,255,255,0) 100%),url();
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.23) 0%,rgba(255,255,255,0) 100%),url(black_bg.jpg);
 }
 
 .main {
@@ -76,7 +76,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     top: 11%;
     left: 24%;
     background: url(red.png);
-	background: #d53f3f;
+	background-image: linear-gradient(to right, rgba(248,80,50,1) 0%, rgb(204, 13, 19) 23%, rgba(246, 41, 12, 0.82) 39%,rgb(196, 58, 63) 76%, rgba(231,56,39,1) 100%);
     height: 135px;
     width: 300px;
     border-radius: 0 0 150px 150px;
@@ -118,8 +118,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     width: 970px;
     height: 150px;
     position: absolute;
-    background: url(),url(red.png);
-	 background: url(),#d53f3f;
+    background: url(timer.png),url(red.png);
+	    background: url(timer.png),linear-gradient(to right, rgba(248,80,50,1) 0%, rgb(157, 29, 33) 23%, rgba(246, 41, 12, 0.82) 39%, rgba(231,56,39,1) 61%, rgb(161, 29, 33) 76%, rgba(231,56,39,1) 100%);
     /* display: none; */
     background-size: 65% 25%,100%;
     background-repeat: repeat-x;
@@ -333,17 +333,17 @@ var pixelWidth = 630;
 var secondsWidth = 25;
 var timeMultiplier = 1000 * 60;
 var tickSound = new Howl({
-		urls: ['', ''],
+		urls: ['pomodoro_tick.ogg', 'pomodoro_tick.mp3'],
 		loop: true,
 		volume: 0.5 });
 
 var turnSound = new Howl({
-		urls: ['', ''] });
+		urls: ['pomodoro_turn.ogg', 'pomodoro_turn.mp3'] });
 
 var isTickPlaying = false;
 var turnSoundDist = 25 / 2;
 var ringSound = new Howl({
-		urls: ['', ''],
+		urls: ['pomodoro_ring.ogg', 'pomodoro_ring.mp3'],
 		volume: 1.0 });
 
 
@@ -387,6 +387,57 @@ $(document).mousemove(function (e) {
 				lastTurnPos = e.pageX;
 		}
 		oldPosX = e.pageX;
+}).mouseup(function (e) {
+		isDragging = false;
+		  /*var time=timePos+"ms";
+    var animation  = 'rotate '+time+' linear infinite';
+    var anm = $('.tomato').css('animation', 'none');
+setTimeout(function(){
+    anm.css('animation', animation);
+});*/
+});
+
+ $tm.on('touchstart', function(e){  
+            console.log("test");
+		e.preventDefault();
+		isDragging = true;
+    });
+ $tm.on('touchend', function(e){  
+            console.log("test");
+		e.preventDefault();
+		isDragging = true;
+    });
+	
+	
+	$(document).on('touchmove',function (e) {
+		e.preventDefault();
+		if (isDragging) {
+		 touch = undefined
+  if (e.originalEvent.touches)
+    touch = e.originalEvent.touches[0]
+				var moveX = touch.pageY - oldPosX;
+				$(".tomato").css("-webkit-animation-play-state", "paused");
+				/*var xaxis=$('.tomato').css('background-position-x');				
+				$('.tomato').css('background-position-x',parseInt(xaxis.substr(0, xaxis.length-2))+moveX+"px");*/
+				pixelPos -= moveX;
+				pixelPos = Math.max(0, Math.min(pixelPos, pixelWidth));
+				timePos = Math.ceil(pixelPos * secondsWidth / pixelWidth * timeMultiplier);
+				console.log(timePos);
+				renderTime();				
+				if (moveX > 0) {
+						lastTurnPos = touch.pageY;
+						}
+				if (touch.pageX - lastTurnPos < -turnSoundDist) {
+						if (pixelPos < pixelWidth) {
+								turnSound.play();								
+						}
+						lastTurnPos = touch.pageY;
+				}	
+						
+		} else {
+				lastTurnPos = touch.pageY;
+		}
+		oldPosX = touch.pageY;
 }).mouseup(function (e) {
 		isDragging = false;
 		  /*var time=timePos+"ms";
